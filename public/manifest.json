@@ -1,0 +1,29 @@
+{
+    "manifest_version": 3,
+    "name": "Email Buddy",
+    "version": "1.0",    
+    "permissions": ["storage", "activeTab", "scripting", "tabs"],
+  
+    "host_permissions": [
+      "https://mail.google.com/*",
+      "https://openrouter.ai/*"
+    ],
+  
+    "action": {
+      "default_popup": "index.html",
+      "default_icon": {
+      "16": "icon16.png",
+      "48": "icon16.png",
+      "128": "icon16.png"
+    }
+    },
+    "content_scripts": [
+    {
+      "matches": ["https://mail.google.com/*"],
+      "js": ["content.js"]
+    }
+  ]
+  
+    
+  }
+  
