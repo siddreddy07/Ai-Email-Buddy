@@ -16,7 +16,7 @@ This Chrome extension summarizes Gmail emails using the OpenRouter API, turning 
 
 1. Clone the repo:
    ```bash
-   git clone https://github.com/your-username/email-summarizer-extension.git
+   git clone https://github.com/your-username/Ai-Email-Buddy.git
    ```
 2. Open Chrome, go to `chrome://extensions/`.
 3. Turn on **Developer mode**.
@@ -95,7 +95,7 @@ This Chrome extension summarizes Gmail emails using the OpenRouter API, turning 
 ## File Structure
 
 ```
-email-summarizer-extension/
+Ai-Email-Buddy/
 ├── src/
 │   ├── public/
 │   │   ├── content.js     # Email processing
