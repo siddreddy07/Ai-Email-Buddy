@@ -142,7 +142,7 @@ email-summarizer-extension/
 
 ## Tutorial
 
-- Learn to build this extension: [How to Use LinkedIn Learning](https://www.linkedin.com/learning/how-to-use-linkedin-learning)
+- Learn how to use this extension: [How to Use Extension](https://www.linkedin.com/learning/how-to-use-linkedin-learning)
 
 ## License
 
