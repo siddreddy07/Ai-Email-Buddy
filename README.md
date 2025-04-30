@@ -39,7 +39,7 @@ This Chrome extension summarizes Gmail emails using the OpenRouter API, turning 
 1. Install **Node.js** and **npm**.
 2. Go to project folder:
    ```bash
-   cd email-summarizer-extension
+   cd Ai-Email-Buddy
    ```
 3. Install dependencies:
    ```bash
