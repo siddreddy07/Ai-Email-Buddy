@@ -1,60 +1,43 @@
-Apologies for the confusion earlier! Here’s the **complete markdown code** for the entire `README.md` file:
-
 ```markdown
 # Email Summarizer Chrome Extension
 
-This Chrome extension automatically summarizes emails in Gmail using the OpenRouter API, converting URLs into clickable links and providing concise, professional summaries with key points and actionable insights.
+This Chrome extension summarizes Gmail emails using the OpenRouter API, turning URLs into clickable links and creating concise summaries. It uses **React Icons** for UI and **Tailwind CSS** for styling.
 
 ## Features
 
-- 📧 Summarizes emails with 3–4 key points and up to 2 extras.
-- 🔗 Converts URLs into clickable links.
-- 🖼️ Includes image URLs in summaries.
-- 🎨 Uses color-coded badges (green, red, yellow, blue) to indicate email status or priority.
+- 📧 Summarizes emails (3–4 key points, up to 2 extras).
+- 🔗 Makes URLs clickable.
+- 🖼️ Adds image URLs to summaries.
+- 🎨 Shows status with colored badges (green, red, yellow, blue).
 - 🔑 Securely stores API keys.
-- 🔔 Clears old summaries when a new email is opened.
+- 🔔 Refreshes summaries for new emails.
 
 ## Installation
 
-1. Clone the repository:
+1. Clone the repo:
    ```bash
    git clone https://github.com/your-username/email-summarizer-extension.git
    ```
-2. Navigate to `chrome://extensions/` in Chrome.
-3. Enable **Developer mode** (top-right toggle).
-4. Click **Load unpacked** and select the folder containing the extension files (either `dist` after building, or `src` if you haven’t built yet).
-5. The extension will now appear in your Chrome extensions list.
+2. Open Chrome, go to `chrome://extensions/`.
+3. Turn on **Developer mode**.
+4. Click **Load unpacked**, select `dist` (after building) or `src` folder.
+5. The extension appears in Chrome.
 
 ## Usage
 
 1. **Set API Key**:
-   - Open the extension popup (click the extension icon).
-   - Enter your API key from [OpenRouter](https://openrouter.ai/) and save it.
-   
+   - Click the extension icon.
+   - Enter your [OpenRouter](https://openrouter.ai/) API key and save.
 2. **View Summaries**:
-   - Open an email in Gmail.
-   - The extension will automatically process the email and display a summary with:
-     - Subject (1–2 words).
-     - Sender name.
-     - Summary body with key points (✅) and extras (📌).
-     - Badge color indicating status (green, red, yellow, or blue).
-   
+   - Open a Gmail email.
+   - See subject, sender, key points (✅), extras (📌), and badge color.
 3. **New Emails**:
-   - The extension will detect when you view a new email and clear old summaries to ensure fresh content.
-
-## How It Works
-
-- **Content Extraction**: Scrapes email content, sender details, and image URLs from Gmail’s DOM using specific selectors.
-- **API Integration**: Sends email HTML and image URLs to the OpenRouter API for summarization.
-- **Summary Formatting**: Returns a concise summary in JSON with subject, body (HTML-formatted with tags like `<p>`, `<ul>`, `<li>`, `<strong>`, `<a>`), and badge color.
-- **Storage**: Caches summaries in `chrome.storage.local` to avoid redundant API calls for the same email.
-- **Security**: Sanitizes HTML to allow only safe tags and validates URLs for safety.
-- **New Email Detection**: Monitors URL changes to detect when a new email is opened and clears cached summaries.
+   - Summaries auto-refresh for new emails.
 
 ## Build
 
-1. Ensure **Node.js** and **npm** are installed.
-2. Navigate to the project folder:
+1. Install **Node.js** and **npm**.
+2. Go to project folder:
    ```bash
    cd email-summarizer-extension
    ```
@@ -62,11 +45,11 @@ This Chrome extension automatically summarizes emails in Gmail using the OpenRou
    ```bash
    npm install
    ```
-4. Build the extension:
+4. Build:
    ```bash
    npm run build
    ```
-5. Find the built files in the `dist` folder.
+5. Built files are in `dist`.
 
 ### `package.json` Scripts
 
@@ -74,59 +57,105 @@ This Chrome extension automatically summarizes emails in Gmail using the OpenRou
 {
   "scripts": {
     "build": "rm -rf dist && mkdir dist && cp -r src/* dist/"
+  },
+  "dependencies": {
+    "react-icons": "^5.3.0",
+    "tailwindcss": "^3.4.13"
   }
 }
 ```
+
+### Tailwind CSS Setup
+- Run:
+  ```bash
+  npx tailwindcss init
+  ```
+- Edit `tailwind.config.js`:
+  ```javascript
+  module.exports = {
+    content: ["./src/**/*.{jsx,html}"],
+    theme: { extend: {} },
+    plugins: []
+  };
+  ```
+- Add to `src/styles.css`:
+  ```css
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+  ```
+
+### React Icons
+- Used in `popup.jsx` (e.g., save, spinner icons).
+- Example:
+  ```javascript
+  import { FaSave, FaSpinner } from 'react-icons/fa';
+  ```
 
 ## File Structure
 
 ```
 email-summarizer-extension/
 ├── src/
-│   ├── content.js
-│   ├── popup.html
-│   ├── popup.js
-│   ├── manifest.json
-├── dist/
+│   ├── public/
+│   │   ├── content.js     # Email processing
+│   │   ├── manifest.json  # Extension config
+│   ├── popup/
+│   │   ├── popup.jsx      # Popup UI (React Icons, Tailwind)
+│   ├── styles.css         # Tailwind styles
+├── dist/                  # Built files
 ├── package.json
+├── tailwind.config.js
 ├── README.md
 ```
 
 ## Configuration
 
 - **manifest.json**:
-   - Ensure it includes the required permissions: `storage`, `activeTab`, `https://mail.google.com/*`, `https://openrouter.ai/*`.
-   - Configure content script to run on `https://mail.google.com/*`.
-   
+  - Add permissions: `storage`, `activeTab`, `https://mail.google.com/*`, `https://openrouter.ai/*`
+  - Set content script for `https://mail.google.com/*`
+  - Link popup:
+    ```json
+    "action": {
+      "default_popup": "popup/popup.jsx"
+    }
+    ```
 - **API Setup**:
-   - Replace `'https://your-site-url.com'` in `content.js` with your site URL (if needed).
-   - Update `'Email Summarizer'` in the `X-Title` header if required.
+  - Update `'https://your-site-url.com'` in `content.js`.
+  - Change `'Email Summarizer'` in `X-Title` if needed.
 
 ## Troubleshooting
 
-- **"No API key found"**: Set a valid API key in the extension popup.
-- **"Can't find email content"**: Ensure you're viewing an email in Gmail. Update the DOM selectors in `content.js` if Gmail’s structure changes.
-- **API failed**: Verify the validity of your OpenRouter API key and check the network or API status.
-- **Timeout errors**: Increase the timeout in `content.js` (default is 30 seconds) for slow API responses.
-- **Invalid summaries**: Check the API response JSON for missing fields or malformed data. Ensure the API model supports the required prompt structure.
+- **No API key**: Add key in popup.
+- **No email content**: Check Gmail; update `content.js` selectors.
+- **API errors**: Verify OpenRouter key, network.
+- **Build fails**: Ensure Node.js, npm, `src` files exist.
+- **Styling issues**: Check Tailwind setup, `styles.css` link.
 
 ## Limitations
 
-- The extension works only on Gmail (`https://mail.google.com/*`).
-- It requires a valid OpenRouter API key.
-- The extension may fail if Gmail’s DOM structure changes significantly.
-- Image summaries depend on API support for image processing.
-- The extension does not handle email attachments directly; it only summarizes linked content.
+- Gmail only.
+- Needs OpenRouter API key.
+- May break if Gmail’s layout changes.
+- Image summaries rely on API.
+- No attachment support.
+
+## Tutorial
+
+- Learn to build this extension: [How to Use LinkedIn Learning](https://www.linkedin.com/learning/how-to-use-linkedin-learning)
 
 ## License
 
 MIT License. See [LICENSE](LICENSE).
-
-## Resources
-
-- **LinkedIn Learning**: [How to Use LinkedIn Learning](https://www.linkedin.com/learning/how-to-use-linkedin-learning)
 ```
 
-This is the entire markdown code for your `README.md` file, which includes everything: features, installation, usage, configuration, troubleshooting, build instructions, and limitations. Make sure to replace the `your-username` in the repository URL with your GitHub username.
+### Notes
+- **Clean & Simple**: Steps are short, clear, and easy to follow, with minimal technical jargon.
+- **File Structure**: Reflects `public` inside `src` with only `content.js` and `manifest.json`, and `popup` folder inside `src` with `popup.jsx`.
+- **React Icons & Tailwind CSS**: Included for `popup.jsx`, with basic setup instructions.
+- **Build**: Copies `src` (including `public` and `popup`) to `dist`. Note: Chrome doesn't support `.jsx` directly; you likely need a bundler (e.g., Webpack) to compile `popup.jsx` to `popup.js`. If you use one, let me know to update the build script.
+- **Tutorial**: Only the LinkedIn Learning link is included.
+- **Placeholders**: Replace `your-username` with your GitHub username.
+- **LICENSE**: Ensure a `LICENSE` file is in your repository.
 
-Let me know if you need any more adjustments or additional details!
+Copy this code into your `README.md` file, commit, and push to GitHub. If you need other files (e.g., `manifest.json`, `popup.jsx`) or changes (e.g., bundler setup), let me know!
