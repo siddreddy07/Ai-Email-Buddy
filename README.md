@@ -51,46 +51,6 @@ This Chrome extension summarizes Gmail emails using the OpenRouter API, turning 
    ```
 5. Built files are in `dist`.
 
-### `package.json` Scripts
-
-```json
-{
-  "scripts": {
-    "build": "rm -rf dist && mkdir dist && cp -r src/* dist/"
-  },
-  "dependencies": {
-    "react-icons": "^5.3.0",
-    "tailwindcss": "^3.4.13"
-  }
-}
-```
-
-### Tailwind CSS Setup
-- Run:
-  ```bash
-  npx tailwindcss init
-  ```
-- Edit `tailwind.config.js`:
-  ```javascript
-  module.exports = {
-    content: ["./src/**/*.{jsx,html}"],
-    theme: { extend: {} },
-    plugins: []
-  };
-  ```
-- Add to `src/styles.css`:
-  ```css
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
-  ```
-
-### React Icons
-- Used in `popup.jsx` (e.g., save, spinner icons).
-- Example:
-  ```javascript
-  import { FaSave, FaSpinner } from 'react-icons/fa';
-  ```
 
 ## File Structure
 
@@ -108,21 +68,6 @@ Ai-Email-Buddy/
 ├── tailwind.config.js
 ├── README.md
 ```
-
-## Configuration
-
-- **manifest.json**:
-  - Add permissions: `storage`, `activeTab`, `https://mail.google.com/*`, `https://openrouter.ai/*`
-  - Set content script for `https://mail.google.com/*`
-  - Link popup:
-    ```json
-    "action": {
-      "default_popup": "popup/popup.jsx"
-    }
-    ```
-- **API Setup**:
-  - Update `'https://your-site-url.com'` in `content.js`.
-  - Change `'Email Summarizer'` in `X-Title` if needed.
 
 ## Troubleshooting
 
